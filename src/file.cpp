@@ -34,7 +34,7 @@
 
 namespace
 {
-#ifdef BX_PLATFORM_WINDOWS
+#if BX_PLATFORM_WINDOWS
 	std::wstring Utf8ToWide(const std::string& utf8_str)
 	{
 		std::wstring rt = L"";
