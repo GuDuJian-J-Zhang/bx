@@ -28,6 +28,37 @@
 #	endif // BX_CRT_MSVC
 #endif // !BX_CRT_NONE
 
+#if BX_PLATFORM_WINDOWS
+#include <string>
+#endif
+
+namespace
+{
+#ifdef BX_PLATFORM_WINDOWS
+	std::wstring Utf8ToWide(const std::string& utf8_str)
+	{
+		std::wstring rt = L"";
+		if (!utf8_str.length())
+		{
+			return rt;
+		}
+		int len = MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, NULL, 0);
+		if (len <= 0)
+		{
+			return rt;
+		}
+
+		rt.resize(len);
+
+		if (MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, rt.data(), len) == 0)
+		{
+			return rt;
+		}
+
+		return rt;
+	}
+#endif
+}
 namespace bx
 {
 	class NoopWriterImpl : public FileWriterI
@@ -108,7 +139,13 @@ namespace bx
 				return false;
 			}
 
+#if BX_PLATFORM_WINDOWS
+			std::wstring wFileName = Utf8ToWide(_filePath.getCPtr());
+			std::wstring wMode = Utf8ToWide("rb");
+			m_file = _wfopen(wFileName.c_str(), wMode.c_str());
+#else
 			m_file = fopen(_filePath.getCPtr(), "rb");
+#endif
 			if (NULL == m_file)
 			{
 				BX_ERROR_SET(_err, kErrorReaderWriterOpen, "FileReader: Failed to open file.");
@@ -187,9 +224,13 @@ namespace bx
 				BX_ERROR_SET(_err, kErrorReaderWriterAlreadyOpen, "FileReader: File is already open.");
 				return false;
 			}
-
+#if BX_PLATFORM_WINDOWS
+			std::wstring wFileName = Utf8ToWide(_filePath.getCPtr());
+			std::wstring wMode = Utf8ToWide( _append ? "ab" : "wb");
+			m_file = _wfopen(wFileName.c_str(), wMode.c_str());
+#else
 			m_file = fopen(_filePath.getCPtr(), _append ? "ab" : "wb");
-
+#endif
 			if (NULL == m_file)
 			{
 				BX_ERROR_SET(_err, kErrorReaderWriterOpen, "FileWriter: Failed to open file.");
