@@ -38,7 +38,7 @@ namespace bx
 #define ELEMw 3
 #define BX_SIMD128_IMPLEMENT_SWIZZLE(_x, _y, _z, _w)                                            \
 			template<>                                                                          \
-			inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_swiz_##_x##_y##_z##_w(simd128_ref_t _a)  \
+			BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_swiz_##_x##_y##_z##_w(simd128_ref_t _a)  \
 			{                                                                                   \
 				return simd128_ref_t{ { _a.u32[ELEM##_x], _a.u32[ELEM##_y], _a.u32[ELEM##_z], _a.u32[ELEM##_w] } }; \
 			}
@@ -53,7 +53,7 @@ namespace bx
 
 #define BX_SIMD128_IMPLEMENT_TEST(_xyzw, _mask)                                     \
 			template<>                                                              \
-			inline BX_CONSTEXPR_FUNC bool simd128_test_any_##_xyzw(simd128_ref_t _test) \
+			BX_CONSTEXPR_FUNC bool simd128_test_any_##_xyzw(simd128_ref_t _test) \
 			{                                                                       \
 				uint32_t tmp = ( (_test.u32[3]>>31)<<3)                           \
 				             | ( (_test.u32[2]>>31)<<2)                           \
@@ -64,7 +64,7 @@ namespace bx
 			}                                                                       \
 			                                                                        \
 			template<>                                                              \
-			inline BX_CONSTEXPR_FUNC bool simd128_test_all_##_xyzw(simd128_ref_t _test) \
+			BX_CONSTEXPR_FUNC bool simd128_test_all_##_xyzw(simd128_ref_t _test) \
 			{                                                                       \
 				uint32_t tmp = ( (_test.u32[3]>>31)<<3)                           \
 				             | ( (_test.u32[2]>>31)<<2)                           \
@@ -93,7 +93,7 @@ namespace bx
 #undef BX_SIMD128_IMPLEMENT_TEST
 
 	template<>
-	inline BX_CONSTEXPR_FUNC bool simd128_test_zero(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC bool simd128_test_zero(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		return 0 == ( (_a.u32[0] & _b.u32[0])
 		            | (_a.u32[1] & _b.u32[1])
@@ -103,7 +103,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xyAB(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xyAB(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0];
@@ -114,7 +114,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_ABxy(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_ABxy(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _b.u32[0];
@@ -125,7 +125,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_CDzw(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_CDzw(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _b.u32[2];
@@ -136,7 +136,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zwCD(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zwCD(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[2];
@@ -147,7 +147,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xAyB(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xAyB(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0];
@@ -158,7 +158,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_AxBy(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_AxBy(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _b.u32[0];
@@ -169,7 +169,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zCwD(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zCwD(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[2];
@@ -180,7 +180,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_CzDw(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_CzDw(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _b.u32[2];
@@ -191,7 +191,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xzAC(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xzAC(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0];
@@ -202,7 +202,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_ywBD(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_ywBD(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[1];
@@ -213,7 +213,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xxAA(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xxAA(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0];
@@ -224,7 +224,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_yyBB(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_yyBB(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[1];
@@ -235,7 +235,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zzCC(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_zzCC(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[2];
@@ -246,7 +246,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_wwDD(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_wwDD(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[3];
@@ -257,16 +257,16 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC float simd128_f32_x(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[0]; }
+	BX_CONSTEXPR_FUNC float simd128_f32_x(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[0]; }
 
 	template<>
-	inline BX_CONSTEXPR_FUNC float simd128_f32_y(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[1]; }
+	BX_CONSTEXPR_FUNC float simd128_f32_y(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[1]; }
 
 	template<>
-	inline BX_CONSTEXPR_FUNC float simd128_f32_z(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[2]; }
+	BX_CONSTEXPR_FUNC float simd128_f32_z(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[2]; }
 
 	template<>
-	inline BX_CONSTEXPR_FUNC float simd128_f32_w(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[3]; }
+	BX_CONSTEXPR_FUNC float simd128_f32_w(simd128_ref_t _a) { return bitCast<simd128_f32_ref_t>(_a).f32[3]; }
 
 	template<>
 	BX_SIMD_FORCE_INLINE simd128_ref_t simd128_ld(const void* _ptr)
@@ -309,14 +309,14 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(float _x, float _y, float _z, float _w)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(float _x, float _y, float _z, float _w)
 	{
 		const simd128_f32_ref_t result = { { _x, _y, _z, _w } };
 		return bitCast<simd128_ref_t>(result);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(uint32_t _x, uint32_t _y, uint32_t _z, uint32_t _w)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(uint32_t _x, uint32_t _y, uint32_t _z, uint32_t _w)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _x;
@@ -327,7 +327,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(int32_t _x, int32_t _y, int32_t _z, int32_t _w)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_ld(int32_t _x, int32_t _y, int32_t _z, int32_t _w)
 	{
 		simd128_ref_t result;
 		result.u32[0] = uint32_t(_x);
@@ -338,38 +338,38 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(float _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(float _a)
 	{
 		return simd128_ld<simd128_ref_t>(_a, _a, _a, _a);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(int32_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(int32_t _a)
 	{
 		return simd128_ld<simd128_ref_t>(_a, _a, _a, _a);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(uint32_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(uint32_t _a)
 	{
 		return simd128_ld<simd128_ref_t>(_a, _a, _a, _a);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(double _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(double _a)
 	{
 		const simd128_f64_ref_t result = { { _a, _a } };
 		return bitCast<simd128_ref_t>(result);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_zero()
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_zero()
 	{
 		return simd128_ld<simd128_ref_t>(0u, 0u, 0u, 0u);
 	}
 
 	template<>
-	inline BX_CONST_FUNC simd128_ref_t simd128_i32_itof(simd128_ref_t _a)
+	BX_CONST_FUNC simd128_ref_t simd128_i32_itof(simd128_ref_t _a)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -384,7 +384,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONST_FUNC simd128_ref_t simd128_f32_ftoi_trunc(simd128_ref_t _a)
+	BX_CONST_FUNC simd128_ref_t simd128_f32_ftoi_trunc(simd128_ref_t _a)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -399,7 +399,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_ftoi_round(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_ftoi_round(simd128_ref_t _a)
 	{
 		const simd128_f32_ref_t a = bitCast<simd128_f32_ref_t>(_a);
 		const simd128_i32_ref_t result = { { (int32_t)round(a.f32[0]), (int32_t)round(a.f32[1]), (int32_t)round(a.f32[2]), (int32_t)round(a.f32[3]) } };
@@ -407,7 +407,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -424,7 +424,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -441,7 +441,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_mul(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_mul(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -458,7 +458,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_div(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_div(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -475,7 +475,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_rcp_est(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_rcp_est(simd128_ref_t _a)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t one    = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -517,7 +517,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_min(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_min(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_f32_ref_t a = bitCast<simd128_f32_ref_t>(_a);
 		const simd128_f32_ref_t b = bitCast<simd128_f32_ref_t>(_b);
@@ -526,7 +526,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_max(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_max(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_f32_ref_t a = bitCast<simd128_f32_ref_t>(_a);
 		const simd128_f32_ref_t b = bitCast<simd128_f32_ref_t>(_b);
@@ -553,7 +553,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -574,7 +574,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -595,7 +595,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmple(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmple(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -616,7 +616,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -637,7 +637,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpge(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f32_cmpge(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f32_langext_t a      = bitCast<simd128_f32_langext_t>(_a);
@@ -658,7 +658,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -675,7 +675,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -704,7 +704,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_min(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_min(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_i32_ref_t a = bitCast<simd128_i32_ref_t>(_a);
 		const simd128_i32_ref_t b = bitCast<simd128_i32_ref_t>(_b);
@@ -718,7 +718,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_max(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_max(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_i32_ref_t a = bitCast<simd128_i32_ref_t>(_a);
 		const simd128_i32_ref_t b = bitCast<simd128_i32_ref_t>(_b);
@@ -732,7 +732,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -753,7 +753,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -774,7 +774,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a      = bitCast<simd128_i32_langext_t>(_a);
@@ -795,7 +795,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i32_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
 	{
 		const simd128_ref_t hi     = simd128_i32_max(_a, _min);
 		const simd128_ref_t result = simd128_i32_min(hi, _max);
@@ -803,7 +803,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -822,7 +822,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -841,7 +841,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_mul(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_mul(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -860,7 +860,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_min(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_min(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0] < _b.u32[0] ? _a.u32[0] : _b.u32[0];
@@ -871,7 +871,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_max(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_max(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		simd128_ref_t result;
 		result.u32[0] = _a.u32[0] > _b.u32[0] ? _a.u32[0] : _b.u32[0];
@@ -882,7 +882,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
 	{
 		const simd128_ref_t hi     = simd128_u32_max(_a, _min);
 		const simd128_ref_t result = simd128_u32_min(hi, _max);
@@ -890,7 +890,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -909,7 +909,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmplt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -928,7 +928,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u32_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -947,7 +947,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i16_langext_t a      = bitCast<simd128_i16_langext_t>(_a);
@@ -965,7 +965,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i16_langext_t a      = bitCast<simd128_i16_langext_t>(_a);
@@ -983,7 +983,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_mullo(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_mullo(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i16_langext_t a      = bitCast<simd128_i16_langext_t>(_a);
@@ -1001,7 +1001,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i16_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i16_langext_t a      = bitCast<simd128_i16_langext_t>(_a);
@@ -1019,7 +1019,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x16_sll(simd128_ref_t _a, int _count)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x16_sll(simd128_ref_t _a, int _count)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u16_langext_t a       = bitCast<simd128_u16_langext_t>(_a);
@@ -1035,7 +1035,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x16_srl(simd128_ref_t _a, int _count)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x16_srl(simd128_ref_t _a, int _count)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u16_langext_t a       = bitCast<simd128_u16_langext_t>(_a);
@@ -1051,21 +1051,21 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(int16_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(int16_t _a)
 	{
 		const simd128_i16_ref_t result = { { _a, _a, _a, _a, _a, _a, _a, _a } };
 		return bitCast<simd128_ref_t>(result);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(uint16_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_splat(uint16_t _a)
 	{
 		const simd128_u16_ref_t result = { { _a, _a, _a, _a, _a, _a, _a, _a } };
 		return bitCast<simd128_ref_t>(result);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i8_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i8_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i8_langext_t a      = bitCast<simd128_i8_langext_t>(_a);
@@ -1083,7 +1083,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i8_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i8_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i8_langext_t a      = bitCast<simd128_i8_langext_t>(_a);
@@ -1101,7 +1101,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u8_satadd(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u8_satadd(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_u8_ref_t a = bitCast<simd128_u8_ref_t>(_a);
 		const simd128_u8_ref_t b = bitCast<simd128_u8_ref_t>(_b);
@@ -1115,7 +1115,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u8_satsub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u8_satsub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_u8_ref_t a = bitCast<simd128_u8_ref_t>(_a);
 		const simd128_u8_ref_t b = bitCast<simd128_u8_ref_t>(_b);
@@ -1128,7 +1128,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u16_satadd(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u16_satadd(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_u16_ref_t a = bitCast<simd128_u16_ref_t>(_a);
 		const simd128_u16_ref_t b = bitCast<simd128_u16_ref_t>(_b);
@@ -1142,7 +1142,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u16_satsub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u16_satsub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_u16_ref_t a = bitCast<simd128_u16_ref_t>(_a);
 		const simd128_u16_ref_t b = bitCast<simd128_u16_ref_t>(_b);
@@ -1155,7 +1155,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_and(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_and(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -1174,7 +1174,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_andc(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_andc(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -1194,7 +1194,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_or(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_or(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -1213,7 +1213,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_xor(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_xor(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a      = bitCast<simd128_u32_langext_t>(_a);
@@ -1232,7 +1232,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_sll(simd128_ref_t _a, int _count)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_sll(simd128_ref_t _a, int _count)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a       = bitCast<simd128_u32_langext_t>(_a);
@@ -1250,7 +1250,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_srl(simd128_ref_t _a, int _count)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_srl(simd128_ref_t _a, int _count)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u32_langext_t a       = bitCast<simd128_u32_langext_t>(_a);
@@ -1268,7 +1268,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_sra(simd128_ref_t _a, int _count)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_sra(simd128_ref_t _a, int _count)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i32_langext_t a       = bitCast<simd128_i32_langext_t>(_a);
@@ -1463,7 +1463,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xAzC(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_xAzC(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_ref_t xAyB   = simd128_x32_shuf_xAyB(_a, _b);
 		const simd128_ref_t zCwD   = simd128_x32_shuf_zCwD(_a, _b);
@@ -1472,7 +1472,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_yBwD(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_shuf_yBwD(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_ref_t xAyB   = simd128_x32_shuf_xAyB(_a, _b);
 		const simd128_ref_t zCwD   = simd128_x32_shuf_zCwD(_a, _b);
@@ -1481,7 +1481,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1498,7 +1498,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1515,7 +1515,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_mul(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_mul(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1532,7 +1532,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_div(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_div(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1549,7 +1549,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_min(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_min(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t b = bitCast<simd128_f64_ref_t>(_b);
@@ -1558,7 +1558,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_max(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_max(simd128_ref_t _a, simd128_ref_t _b)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t b = bitCast<simd128_f64_ref_t>(_b);
@@ -1567,7 +1567,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_madd(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _c)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_madd(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _c)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1587,7 +1587,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_nmsub(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _c)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_nmsub(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _c)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1607,7 +1607,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_neg(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_neg(simd128_ref_t _a)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1622,7 +1622,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_abs(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_abs(simd128_ref_t _a)
 	{
 		const simd128_ref_t a_neg  = simd128_f64_neg(_a);
 		const simd128_ref_t result = simd128_f64_max(a_neg, _a);
@@ -1630,7 +1630,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_clamp(simd128_ref_t _a, simd128_ref_t _min, simd128_ref_t _max)
 	{
 		const simd128_ref_t hi     = simd128_f64_max(_a, _min);
 		const simd128_ref_t result = simd128_f64_min(hi, _max);
@@ -1638,7 +1638,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_lerp(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _s)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_lerp(simd128_ref_t _a, simd128_ref_t _b, simd128_ref_t _s)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1659,7 +1659,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_rcp(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_rcp(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { 1.0 / a.f64[0], 1.0 / a.f64[1] } };
@@ -1667,7 +1667,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_sqrt(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_sqrt(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { simd_sqrt(a.f64[0]), simd_sqrt(a.f64[1]) } };
@@ -1675,7 +1675,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_rsqrt(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_rsqrt(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { 1.0 / simd_sqrt(a.f64[0]), 1.0 / simd_sqrt(a.f64[1]) } };
@@ -1683,7 +1683,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_round(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_round(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { simd_round(a.f64[0]), simd_round(a.f64[1]) } };
@@ -1691,7 +1691,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_ceil(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_ceil(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { simd_ceil(a.f64[0]), simd_ceil(a.f64[1]) } };
@@ -1699,7 +1699,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_floor(simd128_ref_t _a)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_floor(simd128_ref_t _a)
 	{
 		const simd128_f64_ref_t a = bitCast<simd128_f64_ref_t>(_a);
 		const simd128_f64_ref_t result = { { simd_floor(a.f64[0]), simd_floor(a.f64[1]) } };
@@ -1707,7 +1707,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpeq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1724,7 +1724,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpneq(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpneq(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1741,7 +1741,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmplt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmplt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1758,7 +1758,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmple(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmple(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1775,7 +1775,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpgt(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1792,7 +1792,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpge(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_f64_cmpge(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_f64_langext_t a      = bitCast<simd128_f64_langext_t>(_a);
@@ -1809,7 +1809,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i64_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i64_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i64_langext_t a      = bitCast<simd128_i64_langext_t>(_a);
@@ -1826,7 +1826,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_i64_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_i64_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_i64_langext_t a      = bitCast<simd128_i64_langext_t>(_a);
@@ -1843,7 +1843,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u64_add(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u64_add(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u64_langext_t a      = bitCast<simd128_u64_langext_t>(_a);
@@ -1860,7 +1860,7 @@ namespace bx
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_u64_sub(simd128_ref_t _a, simd128_ref_t _b)
+	BX_CONSTEXPR_FUNC simd128_ref_t simd128_u64_sub(simd128_ref_t _a, simd128_ref_t _b)
 	{
 #if BX_SIMD_LANGEXT
 		const simd128_u64_langext_t a      = bitCast<simd128_u64_langext_t>(_a);

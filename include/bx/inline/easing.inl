@@ -28,202 +28,202 @@ namespace bx
 			;
 	}
 
-	inline BX_CONST_FUNC float easeLinear(float _t)
+	BX_CONST_FUNC float easeLinear(float _t)
 	{
 		return _t;
 	}
 
-	inline BX_CONST_FUNC float easeStep(float _t)
+	BX_CONST_FUNC float easeStep(float _t)
 	{
 		return _t < 0.5f ? 0.0f : 1.0f;
 	}
 
-	inline BX_CONST_FUNC float easeSmoothStep(float _t)
+	BX_CONST_FUNC float easeSmoothStep(float _t)
 	{
 		return square(_t)*(3.0f - 2.0f*_t);
 	}
 
-	inline BX_CONST_FUNC float easeInQuad(float _t)
+	BX_CONST_FUNC float easeInQuad(float _t)
 	{
 		return square(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutQuad(float _t)
+	BX_CONST_FUNC float easeOutQuad(float _t)
 	{
 		return easeOut<easeInQuad>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutQuad(float _t)
+	BX_CONST_FUNC float easeInOutQuad(float _t)
 	{
 		return easeMix<easeInQuad, easeOutQuad>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInQuad(float _t)
+	BX_CONST_FUNC float easeOutInQuad(float _t)
 	{
 		return easeMix<easeOutQuad, easeInQuad>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInCubic(float _t)
+	BX_CONST_FUNC float easeInCubic(float _t)
 	{
 		return _t*_t*_t;
 	}
 
-	inline BX_CONST_FUNC float easeOutCubic(float _t)
+	BX_CONST_FUNC float easeOutCubic(float _t)
 	{
 		return easeOut<easeInCubic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutCubic(float _t)
+	BX_CONST_FUNC float easeInOutCubic(float _t)
 	{
 		return easeMix<easeInCubic, easeOutCubic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInCubic(float _t)
+	BX_CONST_FUNC float easeOutInCubic(float _t)
 	{
 		return easeMix<easeOutCubic, easeInCubic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInQuart(float _t)
+	BX_CONST_FUNC float easeInQuart(float _t)
 	{
 		return _t*_t*_t*_t;
 	}
 
-	inline BX_CONST_FUNC float easeOutQuart(float _t)
+	BX_CONST_FUNC float easeOutQuart(float _t)
 	{
 		return easeOut<easeInQuart>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutQuart(float _t)
+	BX_CONST_FUNC float easeInOutQuart(float _t)
 	{
 		return easeMix<easeInQuart, easeOutQuart>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInQuart(float _t)
+	BX_CONST_FUNC float easeOutInQuart(float _t)
 	{
 		return easeMix<easeOutQuart, easeInQuart>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInQuint(float _t)
+	BX_CONST_FUNC float easeInQuint(float _t)
 	{
 		return _t*_t*_t*_t*_t;
 	}
 
-	inline BX_CONST_FUNC float easeOutQuint(float _t)
+	BX_CONST_FUNC float easeOutQuint(float _t)
 	{
 		return easeOut<easeInQuint>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutQuint(float _t)
+	BX_CONST_FUNC float easeInOutQuint(float _t)
 	{
 		return easeMix<easeInQuint, easeOutQuint>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInQuint(float _t)
+	BX_CONST_FUNC float easeOutInQuint(float _t)
 	{
 		return easeMix<easeOutQuint, easeInQuint>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInSine(float _t)
+	BX_CONST_FUNC float easeInSine(float _t)
 	{
 		return 1.0f - cos(_t*kPiHalf);
 	}
 
-	inline BX_CONST_FUNC float easeOutSine(float _t)
+	BX_CONST_FUNC float easeOutSine(float _t)
 	{
 		return easeOut<easeInSine>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutSine(float _t)
+	BX_CONST_FUNC float easeInOutSine(float _t)
 	{
 		return easeMix<easeInSine, easeOutSine>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInSine(float _t)
+	BX_CONST_FUNC float easeOutInSine(float _t)
 	{
 		return easeMix<easeOutSine, easeInSine>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInExpo(float _t)
+	BX_CONST_FUNC float easeInExpo(float _t)
 	{
 		return pow(2.0f, 10.0f * (_t - 1.0f) ) - 0.001f;
 	}
 
-	inline BX_CONST_FUNC float easeOutExpo(float _t)
+	BX_CONST_FUNC float easeOutExpo(float _t)
 	{
 		return easeOut<easeInExpo>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutExpo(float _t)
+	BX_CONST_FUNC float easeInOutExpo(float _t)
 	{
 		return easeMix<easeInExpo, easeOutExpo>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInExpo(float _t)
+	BX_CONST_FUNC float easeOutInExpo(float _t)
 	{
 		return easeMix<easeOutExpo, easeInExpo>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInCirc(float _t)
+	BX_CONST_FUNC float easeInCirc(float _t)
 	{
 		return -(sqrt(1.0f - _t*_t) - 1.0f);
 	}
 
-	inline BX_CONST_FUNC float easeOutCirc(float _t)
+	BX_CONST_FUNC float easeOutCirc(float _t)
 	{
 		return easeOut<easeInCirc>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutCirc(float _t)
+	BX_CONST_FUNC float easeInOutCirc(float _t)
 	{
 		return easeMix<easeInCirc, easeOutCirc>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInCirc(float _t)
+	BX_CONST_FUNC float easeOutInCirc(float _t)
 	{
 		return easeMix<easeOutCirc, easeInCirc>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutElastic(float _t)
+	BX_CONST_FUNC float easeOutElastic(float _t)
 	{
 		return pow(2.0f, -10.0f*_t)*sin( (_t-0.3f/4.0f)*(2.0f*kPi)/0.3f) + 1.0f;
 	}
 
-	inline BX_CONST_FUNC float easeInElastic(float _t)
+	BX_CONST_FUNC float easeInElastic(float _t)
 	{
 		return easeOut<easeOutElastic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutElastic(float _t)
+	BX_CONST_FUNC float easeInOutElastic(float _t)
 	{
 		return easeMix<easeInElastic, easeOutElastic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInElastic(float _t)
+	BX_CONST_FUNC float easeOutInElastic(float _t)
 	{
 		return easeMix<easeOutElastic, easeInElastic>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInBack(float _t)
+	BX_CONST_FUNC float easeInBack(float _t)
 	{
 		return easeInCubic(_t) - _t*sin(_t*kPi);
 	}
 
-	inline BX_CONST_FUNC float easeOutBack(float _t)
+	BX_CONST_FUNC float easeOutBack(float _t)
 	{
 		return easeOut<easeInBack>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutBack(float _t)
+	BX_CONST_FUNC float easeInOutBack(float _t)
 	{
 		return easeMix<easeInBack, easeOutBack>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInBack(float _t)
+	BX_CONST_FUNC float easeOutInBack(float _t)
 	{
 		return easeMix<easeOutBack, easeInBack>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutBounce(float _t)
+	BX_CONST_FUNC float easeOutBounce(float _t)
 	{
 		if (4.0f/11.0f > _t)
 		{
@@ -252,17 +252,17 @@ namespace bx
 			 ;
 	}
 
-	inline BX_CONST_FUNC float easeInBounce(float _t)
+	BX_CONST_FUNC float easeInBounce(float _t)
 	{
 		return easeOut<easeOutBounce>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeInOutBounce(float _t)
+	BX_CONST_FUNC float easeInOutBounce(float _t)
 	{
 		return easeMix<easeInBounce, easeOutBounce>(_t);
 	}
 
-	inline BX_CONST_FUNC float easeOutInBounce(float _t)
+	BX_CONST_FUNC float easeOutInBounce(float _t)
 	{
 		return easeMix<easeOutBounce, easeInBounce>(_t);
 	}
