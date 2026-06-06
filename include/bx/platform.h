@@ -446,15 +446,15 @@
 #	define BX_CPP_NAME "C++Unknown"
 #endif // defined(__cplusplus)
 
-#if BX_COMPILER_MSVC && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
+#if BX_COMPILER_MSVC && BX_COMPILER_MSVC >= 1925 && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
 #	error "When using MSVC you must set /Zc:preprocessor compiler option."
-#endif // BX_COMPILER_MSVC && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
+#endif // BX_COMPILER_MSVC && BX_COMPILER_MSVC >= 1925 && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL)
 
 #if defined(__cplusplus)
 
-static_assert(__cplusplus >= BX_LANGUAGE_CPP20, "\n\n"
+static_assert(__cplusplus >= BX_LANGUAGE_CPP17, "\n\n"
 	"\t** IMPORTANT! **\n\n"
-	"\tC++20 standard support is required to build.\n"
+	"\tC++17 standard support is required to build.\n"
 	"\t\n");
 
 // https://releases.llvm.org/
@@ -476,9 +476,9 @@ static_assert(!BX_CRT_GLIBC || BX_CRT_GLIBC >= 23100, "\n\n"
 	"\t\n");
 
 // https://learn.microsoft.com/en-us/cpp/overview/compiler-versions
-static_assert(!BX_COMPILER_MSVC || BX_COMPILER_MSVC >= 1935, "\n\n"
+static_assert(!BX_COMPILER_MSVC || BX_COMPILER_MSVC >= 1920, "\n\n"
 	"\t** IMPORTANT! **\n\n"
-	"\tMinimum supported MSVC 19.35 / Visual Studio 2022 version 17.5 (February 21, 2023).\n"
+	"\tMinimum supported MSVC 19.20 / Visual Studio 2019 version 16.0.\n"
 	"\t\n");
 
 static_assert(!BX_CPU_ENDIAN_BIG, "\n\n"
