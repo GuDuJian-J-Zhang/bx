@@ -40,12 +40,7 @@ namespace bx
 			template<>                                                                          \
 			inline BX_CONSTEXPR_FUNC simd128_ref_t simd128_x32_swiz_##_x##_y##_z##_w(simd128_ref_t _a)  \
 			{                                                                                   \
-				simd128_ref_t result;                                                           \
-				result.u32[0] = _a.u32[ELEM##_x];                                           \
-				result.u32[1] = _a.u32[ELEM##_y];                                           \
-				result.u32[2] = _a.u32[ELEM##_z];                                           \
-				result.u32[3] = _a.u32[ELEM##_w];                                           \
-				return result;                                                                  \
+				return simd128_ref_t{ { _a.u32[ELEM##_x], _a.u32[ELEM##_y], _a.u32[ELEM##_z], _a.u32[ELEM##_w] } }; \
 			}
 
 #include "simd128_swizzle.inl"

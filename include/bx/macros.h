@@ -98,7 +98,24 @@ extern "C" void* __cdecl _alloca(size_t _size);
 
 /// The return value of the function is solely a function of the arguments.
 ///
-#define BX_CONSTEXPR_FUNC constexpr BX_CONST_FUNC
+#if BX_COMPILER_MSVC || defined(BX_CONFIG_MSVC_NO_CONSTEXPR_FUNC)
+// MSVC C++17: drop constexpr on helpers that use mutation/memCopy/__try.
+#	define BX_CXX_CONSTEXPR inline
+#	define BX_CONSTEXPR_VAR const
+#	define BX_LOCAL_CONSTEXPR const
+#	define BX_INLINE_CONSTEXPR inline
+#	undef BX_CONST_FUNC
+#	define BX_CONST_FUNC inline __declspec(noalias)
+#	define BX_CONSTEXPR_FUNC inline __declspec(noalias)
+#	define BX_CONSTEXPR_UTILITY constexpr
+#else
+#	define BX_CXX_CONSTEXPR constexpr
+#	define BX_CONSTEXPR_VAR constexpr
+#	define BX_LOCAL_CONSTEXPR constexpr
+#	define BX_INLINE_CONSTEXPR inline constexpr
+#	define BX_CONSTEXPR_FUNC constexpr BX_CONST_FUNC
+#	define BX_CONSTEXPR_UTILITY constexpr
+#endif // BX_COMPILER_MSVC || defined(BX_CONFIG_MSVC_NO_CONSTEXPR_FUNC)
 
 ///
 #define BX_ALIGN_DECL_16(_decl) BX_ALIGN_DECL(16, _decl)

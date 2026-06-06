@@ -22,7 +22,7 @@ namespace bx
 		static constexpr bool value = B;
 	};
 
-	inline constexpr bool ignoreC4127(bool _x)
+	BX_INLINE_CONSTEXPR bool ignoreC4127(bool _x)
 	{
 		return _x;
 	}
@@ -169,69 +169,73 @@ namespace bx
 	};
 
 	template<typename Ty>
-	inline constexpr Ty max()
+	BX_INLINE_CONSTEXPR Ty max()
 	{
 		return LimitsT<Ty>::max;
 	}
 
 	template<typename Ty>
-	inline constexpr Ty min()
+	BX_INLINE_CONSTEXPR Ty min()
 	{
 		return LimitsT<Ty>::min;
 	}
 
 	template<typename Ty>
-	inline constexpr Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b)
+	BX_INLINE_CONSTEXPR Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b)
 	{
 		return _a < _b ? _a : _b;
 	}
 
 	template<typename Ty>
-	inline constexpr Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b)
+	BX_INLINE_CONSTEXPR Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b)
 	{
 		return _a > _b ? _a : _b;
 	}
 
 	template<typename Ty, typename... Args>
-	inline constexpr Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
+	BX_INLINE_CONSTEXPR Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
 	{
 		return min(min(_a, _b), _args...);
 	}
 
 	template<typename Ty, typename... Args>
-	inline constexpr Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
+	BX_INLINE_CONSTEXPR Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
 	{
 		return max(max(_a, _b), _args...);
 	}
 
 	template<typename Ty, typename... Args>
-	inline constexpr Ty mid(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
+	BX_INLINE_CONSTEXPR Ty mid(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args)
 	{
 		return max(min(_a, _b), min(max(_a, _b), _args...) );
 	}
 
 	template<typename Ty>
-	inline constexpr Ty clamp(const Ty& _a, const TypeIdentityType<Ty>& _min, const TypeIdentityType<Ty>& _max)
+	BX_INLINE_CONSTEXPR Ty clamp(const Ty& _a, const TypeIdentityType<Ty>& _min, const TypeIdentityType<Ty>& _max)
 	{
 		return max(min(_a, _max), _min);
 	}
 
 	template<typename Ty>
-	inline constexpr bool isPowerOf2(Ty _a)
+	BX_CONSTEXPR_UTILITY bool isPowerOf2(Ty _a)
 	{
 		return _a && !(_a & (_a - 1) );
 	}
 
-	constexpr bool isConstantEvaluated()
+	BX_CXX_CONSTEXPR bool isConstantEvaluated()
 	{
+#if BX_COMPILER_CLANG || BX_COMPILER_GCC
 		return __builtin_is_constant_evaluated();
+#else
+		return false;
+#endif // BX_COMPILER_CLANG || BX_COMPILER_GCC
 	}
 
 	BX_PRAGMA_DIAGNOSTIC_PUSH();
 	BX_PRAGMA_DIAGNOSTIC_IGNORED_CLANG_GCC("-Wpsabi");
 
 	template <typename Ty, typename FromT>
-	inline constexpr Ty bitCast(const FromT& _from)
+	BX_INLINE_CONSTEXPR Ty bitCast(const FromT& _from)
 	{
 		static_assert(sizeof(Ty) == sizeof(FromT)
 			, "bx::bitCast failed! Ty and FromT must be the same size."
@@ -246,15 +250,21 @@ namespace bx
 			, "bx::bitCast failed! Ty must be trivially constructible."
 			);
 
+#if BX_COMPILER_CLANG || BX_COMPILER_GCC
 		return __builtin_bit_cast(Ty, _from);
+#else
+		Ty to;
+		memCopy(&to, &_from, sizeof(Ty) );
+		return to;
+#endif // BX_COMPILER_CLANG || BX_COMPILER_GCC
 	}
 
 	BX_PRAGMA_DIAGNOSTIC_POP();
 
-	template<typename Ty, typename FromT>
-	requires (isInteger<   Ty>() || isFloatingPoint<   Ty>() )
-		  && (isInteger<FromT>() || isFloatingPoint<FromT>() )
-	inline constexpr Ty saturateCast(FromT _from)
+	template<typename Ty, typename FromT
+		, typename EnableIfT<(isInteger<Ty>() || isFloatingPoint<Ty>()) && (isInteger<FromT>() || isFloatingPoint<FromT>()), int>::Type = 0
+		>
+	BX_INLINE_CONSTEXPR Ty saturateCast(FromT _from)
 	{
 		if constexpr (isSame<RemoveCvType<Ty>, RemoveCvType<FromT> >() )
 		{
@@ -299,7 +309,7 @@ namespace bx
 	}
 
 	template<typename Ty, typename FromT>
-	inline constexpr bool narrowCastTest(Ty* _out, const FromT& _from)
+	BX_INLINE_CONSTEXPR bool narrowCastTest(Ty* _out, const FromT& _from)
 	{
 		if constexpr (isSame<Ty, FromT>() )
 		{
@@ -324,10 +334,10 @@ namespace bx
 		return to;
 	}
 
-	constexpr float  kFloatInfinity  = bitCast<float>(kFloatExponentMask);
-	constexpr double kDoubleInfinity = bitCast<double>(kDoubleExponentMask);
+	BX_CONSTEXPR_VAR float  kFloatInfinity  = bitCast<float>(kFloatExponentMask);
+	BX_CONSTEXPR_VAR double kDoubleInfinity = bitCast<double>(kDoubleExponentMask);
 
-	inline BX_CONSTEXPR_FUNC uint32_t gcd(uint32_t _a, uint32_t _b)
+	BX_CONSTEXPR_FUNC uint32_t gcd(uint32_t _a, uint32_t _b)
 	{
 		do
 		{
@@ -340,12 +350,12 @@ namespace bx
 		return _a;
 	}
 
-	inline BX_CONSTEXPR_FUNC uint32_t lcm(uint32_t _a, uint32_t _b)
+	BX_CONSTEXPR_FUNC uint32_t lcm(uint32_t _a, uint32_t _b)
 	{
 		return _a * (_b / gcd(_a, _b) );
 	}
 
-	inline BX_CONSTEXPR_FUNC uint32_t strideAlign(uint32_t _offset, uint32_t _stride)
+	BX_CONSTEXPR_FUNC uint32_t strideAlign(uint32_t _offset, uint32_t _stride)
 	{
 		const uint32_t mod    = _offset % _stride;
 		const uint32_t add    = _stride - mod;
@@ -356,7 +366,7 @@ namespace bx
 	}
 
 	template<uint32_t Min>
-	inline BX_CONSTEXPR_FUNC uint32_t strideAlign(uint32_t _offset, uint32_t _stride)
+	BX_CONSTEXPR_FUNC uint32_t strideAlign(uint32_t _offset, uint32_t _stride)
 	{
 		const uint32_t align  = lcm(Min, _stride);
 		const uint32_t mod    = _offset % align;
@@ -368,28 +378,28 @@ namespace bx
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC bool isAligned(Ty _a, size_t _align)
+	BX_CONSTEXPR_FUNC bool isAligned(Ty _a, size_t _align)
 	{
 		const size_t mask = max<size_t>(1, _align) - 1;
 		return 0 == (size_t(_a) & mask);
 	}
 
 	template<>
-	inline BX_CONSTEXPR_FUNC bool isAligned(const void* _ptr, size_t _align)
+	BX_CONSTEXPR_FUNC bool isAligned(const void* _ptr, size_t _align)
 	{
 		const uintptr_t addr = bitCast<uintptr_t>(_ptr);
 		return isAligned(addr, _align);
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC Ty alignDown(Ty _a, size_t _align)
+	BX_CONSTEXPR_FUNC Ty alignDown(Ty _a, size_t _align)
 	{
 		const size_t mask = max<size_t>(1, _align) - 1;
 		return Ty(size_t(_a) & ~mask);
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC Ty* alignDown(Ty* _ptr, size_t _align)
+	BX_CONSTEXPR_FUNC Ty* alignDown(Ty* _ptr, size_t _align)
 	{
 		uintptr_t addr = bitCast<uintptr_t>(_ptr);
 		addr = alignDown(addr, _align);
@@ -397,7 +407,7 @@ namespace bx
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC const Ty* alignDown(const Ty* _ptr, size_t _align)
+	BX_CONSTEXPR_FUNC const Ty* alignDown(const Ty* _ptr, size_t _align)
 	{
 		uintptr_t addr = bitCast<uintptr_t>(_ptr);
 		addr = alignDown(addr, _align);
@@ -405,14 +415,14 @@ namespace bx
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC Ty alignUp(Ty _a, size_t _align)
+	BX_CONSTEXPR_FUNC Ty alignUp(Ty _a, size_t _align)
 	{
 		const size_t mask = max<size_t>(1, _align) - 1;
 		return Ty( (size_t(_a) + mask) & ~mask);
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC Ty* alignUp(Ty* _ptr, size_t _align)
+	BX_CONSTEXPR_FUNC Ty* alignUp(Ty* _ptr, size_t _align)
 	{
 		uintptr_t addr = bitCast<uintptr_t>(_ptr);
 		addr = alignUp(addr, _align);
@@ -420,7 +430,7 @@ namespace bx
 	}
 
 	template<typename Ty>
-	inline BX_CONSTEXPR_FUNC const Ty* alignUp(const Ty* _ptr, size_t _align)
+	BX_CONSTEXPR_FUNC const Ty* alignUp(const Ty* _ptr, size_t _align)
 	{
 		uintptr_t addr = bitCast<uintptr_t>(_ptr);
 		addr = alignUp(addr, _align);

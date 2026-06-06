@@ -215,56 +215,56 @@ namespace bx
 
 	/// Returns numeric minimum of type.
 	template<typename Ty>
-	constexpr Ty min();
+	BX_INLINE_CONSTEXPR Ty min();
 
 	/// Returns numeric maximum of type.
 	template<typename Ty>
-	constexpr Ty max();
+	BX_INLINE_CONSTEXPR Ty max();
 
 	/// Returns minimum of two values.
 	template<typename Ty>
-	constexpr Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b);
+	BX_INLINE_CONSTEXPR Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b);
 
 	/// Returns maximum of two values.
 	template<typename Ty>
-	constexpr Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b);
+	BX_INLINE_CONSTEXPR Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b);
 
 	/// Returns minimum of three or more values.
 	template<typename Ty, typename... Args>
-	constexpr Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
+	BX_INLINE_CONSTEXPR Ty min(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
 
 	/// Returns maximum of three or more values.
 	template<typename Ty, typename... Args>
-	constexpr Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
+	BX_INLINE_CONSTEXPR Ty max(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
 
 	/// Returns middle of three or more values.
 	template<typename Ty, typename... Args>
-	constexpr Ty mid(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
+	BX_INLINE_CONSTEXPR Ty mid(const Ty& _a, const TypeIdentityType<Ty>& _b, const Args&... _args);
 
 	/// Returns clamped value between min/max.
 	template<typename Ty>
-	constexpr Ty clamp(const Ty& _a, const TypeIdentityType<Ty>& _min, const TypeIdentityType<Ty>& _max);
+	BX_INLINE_CONSTEXPR Ty clamp(const Ty& _a, const TypeIdentityType<Ty>& _min, const TypeIdentityType<Ty>& _max);
 
 	/// Returns true if value `_a` is power of 2.
 	template<typename Ty>
-	constexpr bool isPowerOf2(Ty _a);
+	BX_CONSTEXPR_UTILITY bool isPowerOf2(Ty _a);
 
 	/// Returns true if it's evaluated as constexpr.
-	constexpr bool isConstantEvaluated();
+	BX_CXX_CONSTEXPR bool isConstantEvaluated();
 
 	/// Returns a value of type `Ty` by reinterpreting the object representation of `FromT`.
 	template <typename Ty, typename FromT>
-	constexpr Ty bitCast(const FromT& _from);
+	BX_INLINE_CONSTEXPR Ty bitCast(const FromT& _from);
 
 	/// Performs `static_cast` of value `_from`, and if value doesn't fit result type `Ty` it clamps
 	/// the value to `Ty` min/max.
 	template<typename Ty, typename FromT>
-	constexpr Ty saturateCast(FromT _from);
+	BX_INLINE_CONSTEXPR Ty saturateCast(FromT _from);
 
 	/// Performs `static_cast` of value `_from`, and returns true if the value `_from` is
 	/// representable as `Ty`.
 	template<typename Ty, typename FromT>
-	constexpr bool narrowCastTest(Ty* _out, const FromT& _from);
+	BX_INLINE_CONSTEXPR bool narrowCastTest(Ty* _out, const FromT& _from);
 
 	/// Performs `static_cast` of value `_from`, and in debug build runtime verifies/asserts
 	/// that the value didn't change.

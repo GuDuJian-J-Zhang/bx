@@ -29,27 +29,27 @@ namespace bx
 	public:
 		/// Construct default/empty string literal.
 		///
-		constexpr StringLiteral();
+		BX_CXX_CONSTEXPR StringLiteral();
 
 		/// Construct string literal from C-style string literal.
 		///
 		template<int32_t SizeT>
-		constexpr StringLiteral(const char (&_str)[SizeT]);
+		BX_CXX_CONSTEXPR StringLiteral(const char (&_str)[SizeT]);
 
 		/// Returns string length.
 		///
-		constexpr int32_t getLength() const;
+		BX_CXX_CONSTEXPR int32_t getLength() const;
 
 		/// Returns zero-terminated C string pointer to string literal.
 		///
-		constexpr const char* getCPtr() const;
+		BX_CXX_CONSTEXPR const char* getCPtr() const;
 
 		///
-		constexpr void clear();
+		BX_CXX_CONSTEXPR void clear();
 
 		/// Returns `true` if string is empty.
 		///
-		constexpr bool isEmpty() const;
+		BX_CXX_CONSTEXPR bool isEmpty() const;
 
 	private:
 		const char* m_ptr;
@@ -63,75 +63,75 @@ namespace bx
 	public:
 		/// Construct default/empty string view.
 		///
-		constexpr StringView();
+		BX_CXX_CONSTEXPR StringView();
 
 		/// Construct string view from string literal.
 		///
-		constexpr StringView(const StringLiteral& _str);
+		BX_CXX_CONSTEXPR StringView(const StringLiteral& _str);
 
 		///
-		constexpr StringView(const StringView& _rhs);
+		BX_CXX_CONSTEXPR StringView(const StringView& _rhs);
 
 		///
-		constexpr StringView(const StringView& _rhs, int32_t _start, int32_t _len);
+		BX_CXX_CONSTEXPR StringView(const StringView& _rhs, int32_t _start, int32_t _len);
 
 		///
-		constexpr StringView& operator=(const char* _rhs);
+		BX_CXX_CONSTEXPR StringView& operator=(const char* _rhs);
 
 		///
-		constexpr StringView& operator=(const StringView& _rhs);
+		BX_CXX_CONSTEXPR StringView& operator=(const StringView& _rhs);
 
 		///
-		constexpr StringView(const char* _ptr);
+		BX_CXX_CONSTEXPR StringView(const char* _ptr);
 
 		///
-		constexpr StringView(const char* _ptr, int32_t _len);
+		BX_CXX_CONSTEXPR StringView(const char* _ptr, int32_t _len);
 
 		///
-		constexpr StringView(const char* _ptr, const char* _term);
+		BX_CXX_CONSTEXPR StringView(const char* _ptr, const char* _term);
 
 		///
-		constexpr void set(const char* _ptr);
+		BX_CXX_CONSTEXPR void set(const char* _ptr);
 
 		///
-		constexpr void set(const char* _ptr, int32_t _len);
+		BX_CXX_CONSTEXPR void set(const char* _ptr, int32_t _len);
 
 		///
-		constexpr void set(const char* _ptr, const char* _term);
+		BX_CXX_CONSTEXPR void set(const char* _ptr, const char* _term);
 
 		///
-		constexpr void set(const StringView& _str);
+		BX_CXX_CONSTEXPR void set(const StringView& _str);
 
 		///
-		constexpr void set(const StringView& _str, int32_t _start, int32_t _len);
+		BX_CXX_CONSTEXPR void set(const StringView& _str, int32_t _start, int32_t _len);
 
 		///
-		constexpr void clear();
+		BX_CXX_CONSTEXPR void clear();
 
 		/// Returns pointer to non-terminated string.
 		///
 		/// @attention Use of this pointer in standard C/C++ functions is not safe. You must use it
 		///   in conjunction with `getTerm()` or getLength()`.
 		///
-		constexpr const char* getPtr() const;
+		BX_CXX_CONSTEXPR const char* getPtr() const;
 
 		/// Returns pointer past last character in string view.
 		///
 		/// @attention Dereferencing this pointer is not safe.
 		///
-		constexpr const char* getTerm() const;
+		BX_CXX_CONSTEXPR const char* getTerm() const;
 
 		/// Returns `true` if string is empty.
 		///
-		constexpr bool isEmpty() const;
+		BX_CXX_CONSTEXPR bool isEmpty() const;
 
 		/// Returns string length.
 		///
-		constexpr int32_t getLength() const;
+		BX_CXX_CONSTEXPR int32_t getLength() const;
 
 		/// Returns `true` if string is zero terminated.
 		///
-		constexpr bool is0Terminated() const;
+		BX_CXX_CONSTEXPR bool is0Terminated() const;
 
 	protected:
 		const char* m_ptr;
@@ -140,13 +140,13 @@ namespace bx
 	};
 
 	/// Compare two string views.
-	constexpr bool operator==(const StringView& _lhs, const StringView& _rhs);
+	BX_CXX_CONSTEXPR bool operator==(const StringView& _lhs, const StringView& _rhs);
 
 	/// Returns true if two string views overlap.
-	constexpr bool overlap(const StringView& _a, const StringView& _b);
+	BX_CXX_CONSTEXPR bool overlap(const StringView& _a, const StringView& _b);
 
 	/// Returns true if string view `_a` contains string view `_b`.
-	constexpr bool contain(const StringView& _a, const StringView& _b);
+	BX_CXX_CONSTEXPR bool contain(const StringView& _a, const StringView& _b);
 
 	/// Fixed capacity string.
 	///
@@ -161,44 +161,44 @@ namespace bx
 		};
 
 		///
-		constexpr FixedStringT();
+		BX_CXX_CONSTEXPR FixedStringT();
 
 		///
-		constexpr FixedStringT(const char* _str);
+		BX_CXX_CONSTEXPR FixedStringT(const char* _str);
 
 		///
-		constexpr FixedStringT(const StringView& _str);
+		BX_CXX_CONSTEXPR FixedStringT(const StringView& _str);
 
 		///
-		constexpr ~FixedStringT();
+		BX_CXX_CONSTEXPR ~FixedStringT();
 
 		///
-		constexpr void set(const char* _str);
+		BX_CXX_CONSTEXPR void set(const char* _str);
 
 		///
-		constexpr void set(const StringView& _str);
+		BX_CXX_CONSTEXPR void set(const StringView& _str);
 
 		///
-		constexpr void append(const StringView& _str);
+		BX_CXX_CONSTEXPR void append(const StringView& _str);
 
 		///
-		constexpr void clear();
+		BX_CXX_CONSTEXPR void clear();
 
 		/// Returns `true` if string is empty.
 		///
-		constexpr bool isEmpty() const;
+		BX_CXX_CONSTEXPR bool isEmpty() const;
 
 		/// Returns string length.
 		///
-		constexpr int32_t getLength() const;
+		BX_CXX_CONSTEXPR int32_t getLength() const;
 
 		/// Returns zero-terminated C string pointer.
 		///
-		constexpr const char* getCPtr() const;
+		BX_CXX_CONSTEXPR const char* getCPtr() const;
 
 		/// Implicitly converts FixedStringT to StringView.
 		///
-		constexpr operator StringView() const;
+		BX_CXX_CONSTEXPR operator StringView() const;
 
 		///
 		///
@@ -353,10 +353,10 @@ namespace bx
 	int32_t strCmpV(const StringView& _lhs, const StringView& _rhs, int32_t _max = INT32_MAX);
 
 	/// Get string length.
-	constexpr int32_t strLen(const char* _str, int32_t _max = INT32_MAX);
+	BX_CXX_CONSTEXPR int32_t strLen(const char* _str, int32_t _max = INT32_MAX);
 
 	/// Get string length.
-	constexpr int32_t strLen(const StringView& _str, int32_t _max = INT32_MAX);
+	BX_CXX_CONSTEXPR int32_t strLen(const StringView& _str, int32_t _max = INT32_MAX);
 
 	/// Copy _num characters from string _src to _dst buffer of maximum _dstSize capacity
 	/// including zero terminator. Copy will be terminated with '\0'.

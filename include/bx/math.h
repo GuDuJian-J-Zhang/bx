@@ -477,7 +477,7 @@ namespace bx
 	/// @returns Number of leading zero bits.
 	///
 	template<typename Ty>
-	BX_CONSTEXPR_FUNC uint8_t countLeadingZeros(Ty _val);
+	BX_CONSTEXPR_UTILITY uint8_t countLeadingZeros(Ty _val);
 
 	/// Count number of trailing zeros.
 	///
